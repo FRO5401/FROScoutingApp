@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FROScoutingApp</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string-array name="views_array">
+        <item>Text Input</item>
+        <item>Number Input</item>
+        <item>Switch</item>
+        <item>Multiple Choice</item>
+        <item>Divider</item>
+    </string-array>
+
+</resources>
