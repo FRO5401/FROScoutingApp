@@ -1,6 +1,7 @@
 package org.team5401.froscoutingapp;
 
 import android.content.SharedPreferences;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -99,6 +100,9 @@ public class Export extends AppCompatActivity {
             writer.write(", ");
         }
         writer.close();
+
+        String snackbarText = "Data Saved to file: " + fileName;
+        Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
     }
 
     public void saveLayout (View view) throws IOException {
@@ -145,5 +149,8 @@ public class Export extends AppCompatActivity {
             writer.write(name + "," + type + ",");
         }
         writer.close();
+
+        String snackbarText = "Layout Saved to file: " + fileName;
+        Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
     }
 }

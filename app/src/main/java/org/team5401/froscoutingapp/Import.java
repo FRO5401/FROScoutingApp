@@ -1,6 +1,7 @@
 package org.team5401.froscoutingapp;
 
 import android.content.SharedPreferences;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -101,5 +102,8 @@ public class Import extends AppCompatActivity {
             editor.putString(valueOf(i), json);
         }
         editor.apply();
+
+        String snackbarText = "Imported layout: " + layout;
+        Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
     }
 }

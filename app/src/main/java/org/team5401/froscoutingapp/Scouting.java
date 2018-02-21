@@ -2,6 +2,7 @@ package org.team5401.froscoutingapp;
 
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -202,5 +203,8 @@ public class Scouting extends AppCompatActivity {
         }
         scoutingNamesEditor.apply();
         scoutingDataEditor.apply();
+
+        String snackbarText = "Data saved, go to Export tab";
+        Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
     }
 }
