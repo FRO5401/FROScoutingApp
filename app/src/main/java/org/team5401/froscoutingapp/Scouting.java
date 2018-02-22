@@ -159,16 +159,29 @@ public class Scouting extends AppCompatActivity {
         match = matchInput.getText().toString();
         robot = robotInput.getText().toString();
         for (int i = 0; i < viewsArray.size(); i++) {
+            //System.out.println("iteration a" + i);
             String name = viewsInputDataArray.get(i).getName();
             String type = viewsInputDataArray.get(i).getType();
             String data = null;
+            if (type.equals("Divider")) {
+                System.out.println("div skip");
+                continue;
+            }
+            System.out.println(name);
+            //System.out.println(type);
             switch (type) {
                 case "Text Input":
                 case "Number Input":
+                    System.out.println("num");
                     data = viewsArray.get(i).getEditText().getText().toString();
                     break;
                 case "Switch":
+                    System.out.println("switch");
                     data = valueOf(viewsArray.get(i).getSwitch().isChecked());
+                    break;
+                case "Divider":
+                    System.out.println("div");
+                    //divider doesn't do anything, this is here to prevent m a c h i n e b r o k e
                     break;
                 default:
                     System.out.println("m a c h i n e b r o k e");
@@ -176,6 +189,7 @@ public class Scouting extends AppCompatActivity {
             }
             dataArray[i][0] = name;
             dataArray[i][1] = data;
+            //System.out.println("iteration b" + i);
         }
     }
 
