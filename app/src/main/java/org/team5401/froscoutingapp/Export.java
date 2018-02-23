@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.os.Environment.getExternalStorageDirectory;
 import static java.lang.String.valueOf;
 
@@ -57,17 +58,26 @@ public class Export extends AppCompatActivity {
     }
 
     public void saveData (View view) throws IOException {
-        String folderName = "/FROScoutingApp/ScoutingData";
+        String folderName = "/FROScoutingApp/ScoutingData/";
+        String idFolderName = "/FROScoutingApp/";
         File folder = new File(getExternalStorageDirectory(), folderName);
         if (!folder.exists()) {
             folder.mkdirs();
             System.out.println("Created folder (mkdirs)");
         }
 
-        String filepath = getExternalStorageDirectory() + folderName + "/";
-        //String fileName = "Match-" + match + ";Robot-" + robot + ".txt";
-        String fileName = "data.txt";
-        File myFile = new File(filepath + fileName);
+        String filePath = getExternalStorageDirectory() + folderName;
+        String idFilePath = getExternalStorageDirectory() + idFolderName;
+        String idFileName = "id.txt";
+
+
+
+        File idFile = new File(idFilePath + idFileName);
+        BufferedReader idReader = new BufferedReader(new FileReader(idFile));
+        String id = idReader.readLine();
+
+        String fileName = "FROScoutingData" + id + ".txt";
+        File myFile = new File(filePath + fileName);
 
         /*
         boolean fileAlreadyExists = true;
@@ -83,7 +93,7 @@ public class Export extends AppCompatActivity {
         }
         */
         System.out.println("writing to file named " + fileName);
-        System.out.println("filepath: " + filepath);
+        System.out.println("filepath: " + filePath);
 
         //FileWriter writer = new FileWriter(myFile, true);
         BufferedWriter writer = new BufferedWriter(new FileWriter(myFile, true));
@@ -113,7 +123,7 @@ public class Export extends AppCompatActivity {
         String layoutName = layoutNameRaw.getText().toString();
 
         String filepath = getExternalStorageDirectory() + folderName + "/";
-        String fileName = layoutName + ".layout";
+        String fileName = layoutName + ".txt";
         File myFile = new File(filepath + fileName);
 
         boolean fileAlreadyExists = true;

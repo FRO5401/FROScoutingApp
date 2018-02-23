@@ -174,15 +174,25 @@ public class Scouting extends AppCompatActivity {
                 case "Number Input":
                     System.out.println("num");
                     data = viewsArray.get(i).getEditText().getText().toString();
+                    if (data.equals("")) {
+                        data = "0";
+                    }
                     break;
                 case "Switch":
                     System.out.println("switch");
-                    data = valueOf(viewsArray.get(i).getSwitch().isChecked());
+                    if (viewsArray.get(i).getSwitch().isChecked()) {
+                        data = "1";
+                    } else if (!viewsArray.get(i).getSwitch().isChecked()) {
+                        data = "0";
+                    } else {
+                        data = "error";
+                    }
                     break;
                 case "Divider":
                     System.out.println("div");
+                    continue;
                     //divider doesn't do anything, this is here to prevent m a c h i n e b r o k e
-                    break;
+                    //break;
                 default:
                     System.out.println("m a c h i n e b r o k e");
                     break;
