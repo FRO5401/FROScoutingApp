@@ -84,6 +84,7 @@ public class Scouting extends AppCompatActivity {
         for (int i = 0; i < viewsInputDataArray.size(); i++) {
             LinearLayout linearWrapper = new LinearLayout(this);
             linearWrapper.setOrientation(LinearLayout.HORIZONTAL);
+            linearWrapper.setPadding(0,0,0,20);
 
             TextView nameView = new TextView(this);
             nameView.setText(viewsInputDataArray.get(i).getName());
@@ -121,6 +122,7 @@ public class Scouting extends AppCompatActivity {
                 case "Switch": {
                     Switch inputView = new Switch(this);
                     inputView.setLayoutParams(param);
+                    //inputView.setSwitchMinWidth(100);
 
                     linearWrapper.addView(nameView);
                     linearWrapper.addView(inputView);
