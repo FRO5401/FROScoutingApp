@@ -1,6 +1,7 @@
 package org.team5401.froscoutingapp;
 
 import android.content.SharedPreferences;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -36,8 +37,8 @@ public class Export extends AppCompatActivity {
         System.out.println(getExternalStorageDirectory());
 
         SharedPreferences mr = getSharedPreferences("matchRobot", MODE_PRIVATE);
-        match = mr.getString("match", "");
         robot = mr.getString("robot", "");
+        match = mr.getString("match", "");
 
         SharedPreferences scoutingNames = getSharedPreferences("scoutingNames", MODE_PRIVATE);
         scoutingNamesValues = scoutingNames.getAll();
@@ -102,13 +103,16 @@ public class Export extends AppCompatActivity {
             writer.write(System.lineSeparator());
             System.out.println("new line");
         }
-        writer.write((match + ", " + robot + ", "));
+        writer.write((robot + ", " + match + ", "));
         for (Map.Entry<String, ?> entry : scoutingDataValues.entrySet()) {
             String data = entry.getValue().toString();
             writer.write(data);
             writer.write(", ");
         }
         writer.close();
+
+        String snackbarText = "Data saved to file: " + fileName;
+        Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
     }
 
     public void saveLayout (View view) throws IOException {
@@ -155,5 +159,8 @@ public class Export extends AppCompatActivity {
             writer.write(name + "," + type + ",");
         }
         writer.close();
+
+        String snackbarText = "Layout Saved to file: " + fileName;
+        Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
     }
 }

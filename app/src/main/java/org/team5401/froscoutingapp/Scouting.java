@@ -2,6 +2,7 @@ package org.team5401.froscoutingapp;
 
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -34,8 +35,8 @@ public class Scouting extends AppCompatActivity {
     String[][] dataArray;
 
     //LinearLayout linearName, linearInput;
-    EditText matchInput, robotInput;
-    String match, robot;
+    EditText robotInput, matchInput;
+    String robot, match;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,8 @@ public class Scouting extends AppCompatActivity {
 
         //linearName = (LinearLayout) findViewById(R.id.linear_name);
         //linearInput = (LinearLayout) findViewById(R.id.linear_input);
-        matchInput = (EditText) findViewById(R.id.match_input);
         robotInput = (EditText) findViewById(R.id.robot_input);
+        matchInput = (EditText) findViewById(R.id.match_input);
 
         SharedPreferences scoutingInput = getSharedPreferences("scoutingInput", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -158,8 +159,8 @@ public class Scouting extends AppCompatActivity {
     }
 
     private void readData () {
-        match = matchInput.getText().toString();
         robot = robotInput.getText().toString();
+        match = matchInput.getText().toString();
         for (int i = 0; i < viewsArray.size(); i++) {
             //System.out.println("iteration a" + i);
             String name = viewsInputDataArray.get(i).getName();
@@ -209,8 +210,8 @@ public class Scouting extends AppCompatActivity {
         readData();
         SharedPreferences matchRobot = getSharedPreferences("matchRobot", MODE_PRIVATE);
         SharedPreferences.Editor mrEditor = matchRobot.edit();
-        mrEditor.putString("match", match);
         mrEditor.putString("robot", robot);
+        mrEditor.putString("match", match);
         mrEditor.apply();
         SharedPreferences scoutingNames = getSharedPreferences("scoutingNames", MODE_PRIVATE);
         SharedPreferences.Editor scoutingNamesEditor = scoutingNames.edit();
@@ -228,5 +229,7 @@ public class Scouting extends AppCompatActivity {
         }
         scoutingNamesEditor.apply();
         scoutingDataEditor.apply();
+        String snackbarText = "Data saved, go to Export tab";
+        Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
     }
 }
