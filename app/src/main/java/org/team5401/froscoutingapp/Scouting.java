@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 import static android.text.InputType.TYPE_CLASS_TEXT;
@@ -32,10 +34,10 @@ public class Scouting extends AppCompatActivity {
 
     ArrayList<InputData> viewsInputDataArray;
     ArrayList<DataHolder> viewsArray;
-    String[][] dataArray;
+    public static String[][] dataArray;
 
     //LinearLayout linearName, linearInput;
-    EditText robotInput, matchInput;
+    static EditText robotInput, matchInput;
     String robot, match;
 
     @Override
@@ -220,6 +222,19 @@ public class Scouting extends AppCompatActivity {
         scoutingNamesEditor.clear();
         scoutingDataEditor.clear();
         //Gson gson = new Gson();
+        Set<String> namesSet = new LinkedHashSet<String>();
+        Set<String> dataSet = new LinkedHashSet<String>();
+        for (int i = 0; i < dataArray.length; i++) {
+            namesSet.add(dataArray[i][0]);
+            dataSet.add(dataArray[i][1]);
+        }
+        scoutingNamesEditor.putStringSet("namesSet", namesSet);
+        scoutingDataEditor.putStringSet("dataSet", dataSet);
+
+        scoutingNamesEditor.apply();
+        scoutingDataEditor.apply();
+
+        /*
         for (int i = 0; i < dataArray.length; i++) {
             //DataHolder holder = new DataHolder(dataArray[i][0], dataArray[i][1]);  //gson causes ram issues
             //String json = gson.toJson(holder);
@@ -229,6 +244,8 @@ public class Scouting extends AppCompatActivity {
         }
         scoutingNamesEditor.apply();
         scoutingDataEditor.apply();
+        */
+
         String snackbarText = "Data saved, go to Export tab";
         Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
     }

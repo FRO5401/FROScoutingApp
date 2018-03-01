@@ -17,7 +17,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.os.Environment.getExternalStorageDirectory;
@@ -25,7 +27,7 @@ import static java.lang.String.valueOf;
 
 public class Export extends AppCompatActivity {
 
-    Map<String, ?> scoutingNamesValues, scoutingDataValues;
+    Set<String> scoutingNamesValues, scoutingDataValues;
     String match, robot;
 
     @Override
@@ -34,16 +36,18 @@ public class Export extends AppCompatActivity {
         setContentView(R.layout.activity_export);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        System.out.println(getExternalStorageDirectory());
-
         SharedPreferences mr = getSharedPreferences("matchRobot", MODE_PRIVATE);
         robot = mr.getString("robot", "");
         match = mr.getString("match", "");
 
+        scoutingNamesValues = new LinkedHashSet<String>();
+        scoutingDataValues = new LinkedHashSet<String>();
+
         SharedPreferences scoutingNames = getSharedPreferences("scoutingNames", MODE_PRIVATE);
-        scoutingNamesValues = scoutingNames.getAll();
+        scoutingNamesValues = scoutingNames.getStringSet("namesSet", scoutingNamesValues);
+        System.out.println(scoutingNamesValues);
         SharedPreferences scoutingData = getSharedPreferences("scoutingData", MODE_PRIVATE);
-        scoutingDataValues = scoutingData.getAll();
+        scoutingDataValues = scoutingData.getStringSet("dataSet", scoutingDataValues);
     }
 
     //back button
@@ -104,8 +108,8 @@ public class Export extends AppCompatActivity {
             System.out.println("new line");
         }
         writer.write((robot + ", " + match + ", "));
-        for (Map.Entry<String, ?> entry : scoutingDataValues.entrySet()) {
-            String data = entry.getValue().toString();
+        for (String entry : scoutingDataValues) {
+            String data = entry;
             writer.write(data);
             writer.write(", ");
         }
