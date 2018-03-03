@@ -17,8 +17,16 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
+import static android.os.Environment.getExternalStorageDirectory;
 import static android.text.InputType.TYPE_CLASS_NUMBER;
 import static android.text.InputType.TYPE_CLASS_TEXT;
 import static android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
@@ -174,6 +182,8 @@ public class Scouting extends AppCompatActivity {
             //System.out.println(type);
             switch (type) {
                 case "Text Input":
+                    data = viewsArray.get(i).getEditText().getText().toString();
+                    break;
                 case "Number Input":
                     System.out.println("num");
                     data = viewsArray.get(i).getEditText().getText().toString();
@@ -206,6 +216,7 @@ public class Scouting extends AppCompatActivity {
         }
     }
 
+    /*
     public void saveData (View view) {
         readData();
         SharedPreferences matchRobot = getSharedPreferences("matchRobot", MODE_PRIVATE);
@@ -230,6 +241,65 @@ public class Scouting extends AppCompatActivity {
         scoutingNamesEditor.apply();
         scoutingDataEditor.apply();
         String snackbarText = "Data saved, go to Export tab";
+        Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
+    }
+    */
+
+    public void saveData (View view) throws IOException {
+        readData();
+        String folderName = "/FROScoutingApp/ScoutingData/";
+        String idFolderName = "/FROScoutingApp/";
+        File folder = new File(getExternalStorageDirectory(), folderName);
+        if (!folder.exists()) {
+            folder.mkdirs();
+            System.out.println("Created folder (mkdirs)");
+        }
+
+        String filePath = getExternalStorageDirectory() + folderName;
+        String idFilePath = getExternalStorageDirectory() + idFolderName;
+        String idFileName = "id.txt";
+
+
+
+        File idFile = new File(idFilePath + idFileName);
+        BufferedReader idReader = new BufferedReader(new FileReader(idFile));
+        String id = idReader.readLine();
+
+        String fileName = "FROScoutingData" + id + ".txt";
+        File myFile = new File(filePath + fileName);
+
+        /*
+        boolean fileAlreadyExists = true;
+        int counter = 0;
+        while (fileAlreadyExists) {
+            myFile = new File(filepath + fileName);
+            if (myFile.exists() && myFile.isFile()) {
+                counter++;
+                fileName = "Match-" + match + ";Robot-" + robot + "(" + counter + ").txt";
+            } else {
+                fileAlreadyExists = false;
+            }
+        }
+        */
+        System.out.println("writing to file named " + fileName);
+        System.out.println("filepath: " + filePath);
+
+        //FileWriter writer = new FileWriter(myFile, true);
+        BufferedWriter writer = new BufferedWriter(new FileWriter(myFile, true));
+        BufferedReader reader = new BufferedReader(new FileReader(myFile));
+        if (reader.readLine() != null) {
+            writer.write(System.lineSeparator());
+            System.out.println("new line");
+        }
+
+        writer.write((robot + ", " + match + ", "));
+        for (int i = 0; i < dataArray.length; i++) {
+            writer.write(dataArray[i][1]);
+            writer.write(", ");
+        }
+        writer.close();
+
+        String snackbarText = "Data saved to file: " + fileName;
         Snackbar.make(findViewById(R.id.constraintLayout), snackbarText, Snackbar.LENGTH_SHORT).show();
     }
 }
