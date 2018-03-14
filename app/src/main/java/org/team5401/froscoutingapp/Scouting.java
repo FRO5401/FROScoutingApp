@@ -1,13 +1,16 @@
 package org.team5401.froscoutingapp;
 
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -88,7 +91,7 @@ public class Scouting extends AppCompatActivity {
 
     public void importSettings () {
         LinearLayout inputs = (LinearLayout) findViewById(R.id.inputs);
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(150, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(150, 40, 1);
 
         for (int i = 0; i < viewsInputDataArray.size(); i++) {
             LinearLayout linearWrapper = new LinearLayout(this);
@@ -97,7 +100,6 @@ public class Scouting extends AppCompatActivity {
 
             TextView nameView = new TextView(this);
             nameView.setText(viewsInputDataArray.get(i).getName());
-            nameView.setLayoutParams(param);
             nameView.setTextSize(COMPLEX_UNIT_SP, 18);
             nameView.setGravity(CENTER_VERTICAL);
             nameView.setPadding(40, 0, 0, 0);
@@ -106,6 +108,7 @@ public class Scouting extends AppCompatActivity {
                     EditText inputView = new EditText(this);
                     inputView.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_FLAG_CAP_SENTENCES);
                     inputView.setLayoutParams(param);
+                    nameView.setLayoutParams(param);
 
                     linearWrapper.addView(nameView);
                     linearWrapper.addView(inputView);
@@ -116,21 +119,43 @@ public class Scouting extends AppCompatActivity {
                     break;
                 }
                 case "Number Input": {
-                    EditText inputView = new EditText(this);
-                    inputView.setInputType(TYPE_CLASS_NUMBER);
-                    inputView.setLayoutParams(param);
+                    LinearLayout.LayoutParams nameParam =  new LinearLayout.LayoutParams(150, 40, 3);
+                    LinearLayout.LayoutParams inputParam = new LinearLayout.LayoutParams(0, 40, 1);
+
+                    //EditText inputView = new EditText(this);
+                    //inputView.setInputType(TYPE_CLASS_NUMBER);
+                    //inputView.setLayoutParams(param);
+
+                    Button removeButton = new Button(this);
+                    //removeButton.setBackgroundTintList(valueOf(R.color.colorRemove));
+                    removeButton.setBackgroundResource(R.drawable.ic_remove_black_48dp);
+
+                    EditText countView = new EditText(this);
+                    countView.setInputType(TYPE_CLASS_NUMBER);
+
+                    Button addButton = new Button(this);
+                    //addButton.setBackgroundTintList(valueOf(R.color.colorAdd));
+                    addButton.setBackgroundResource(R.drawable.ic_add_black_48dp);
+
+                    nameView.setLayoutParams(nameParam);
+                    removeButton.setLayoutParams(inputParam);
+                    countView.setLayoutParams(inputParam);
+                    addButton.setLayoutParams(inputParam);
 
                     linearWrapper.addView(nameView);
-                    linearWrapper.addView(inputView);
+                    linearWrapper.addView(removeButton);
+                    linearWrapper.addView(countView);
+                    linearWrapper.addView(addButton);
                     inputs.addView(linearWrapper);
 
-                    DataHolder holder = new DataHolder(inputView);
+                    DataHolder holder = new DataHolder(countView);
                     viewsArray.add(holder);
                     break;
                 }
                 case "Switch": {
                     Switch inputView = new Switch(this);
                     inputView.setLayoutParams(param);
+                    nameView.setLayoutParams(param);
                     //inputView.setSwitchMinWidth(100);
 
                     linearWrapper.addView(nameView);
@@ -150,6 +175,7 @@ public class Scouting extends AppCompatActivity {
                     break;
                 }
                 case "Divider": {
+                    nameView.setLayoutParams(param);
                     nameView.setTypeface(null, Typeface.BOLD);
                     nameView.setGravity(CENTER_HORIZONTAL);
                     nameView.setTextSize(COMPLEX_UNIT_SP, 22);
