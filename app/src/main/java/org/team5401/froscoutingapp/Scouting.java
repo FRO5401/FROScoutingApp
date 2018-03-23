@@ -131,8 +131,8 @@ public class Scouting extends AppCompatActivity {
                     linearWrapper.addView(inputView);
                     inputs.addView(linearWrapper);
 
-                    //DataHolder holder = new DataHolder(inputView);
-                    //viewsArray.add(holder);
+                    DataHolder holder = new DataHolder(inputView);
+                    viewsArray.add(holder);
                     break;
                 }
                 case "Switch": {
@@ -192,14 +192,14 @@ public class Scouting extends AppCompatActivity {
                     data = viewsArray.get(i).getEditText().getText().toString();
                     break;
                 case "Number Input":
-                    System.out.println("num");
-                    data = viewsArray.get(i).getEditText().getText().toString();
-                    if (data.equals("")) {
-                        data = "0";
-                    }
+                    //data = viewsArray.get(i).getEditText().getText().toString();
+                    //if (data.equals("")) {
+                    //    data = "0";
+                    //}
+
+                    data = valueOf(viewsArray.get(i).getNumberPicker().getValue());
                     break;
                 case "Switch":
-                    System.out.println("switch");
                     if (viewsArray.get(i).getSwitch().isChecked()) {
                         data = "1";
                     } else if (!viewsArray.get(i).getSwitch().isChecked()) {
@@ -209,7 +209,6 @@ public class Scouting extends AppCompatActivity {
                     }
                     break;
                 case "Divider":
-                    System.out.println("div");
                     continue;
                     //divider doesn't do anything, this is here to prevent m a c h i n e b r o k e
                     //break;
