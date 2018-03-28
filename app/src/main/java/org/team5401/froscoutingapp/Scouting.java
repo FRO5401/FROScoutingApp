@@ -97,9 +97,11 @@ public class Scouting extends AppCompatActivity {
             LinearLayout linearWrapper = new LinearLayout(this);
             linearWrapper.setOrientation(LinearLayout.HORIZONTAL);
             linearWrapper.setPadding(0,0,0,20);
+            linearWrapper.setBackgroundResource(R.drawable.bottom_border);
 
             TextView nameView = new TextView(this);
             nameView.setText(viewsInputDataArray.get(i).getName());
+            nameView.setLayoutParams(param);
             nameView.setTextSize(COMPLEX_UNIT_SP, 18);
             nameView.setGravity(CENTER_VERTICAL);
             nameView.setPadding(40, 0, 0, 0);
@@ -218,7 +220,6 @@ public class Scouting extends AppCompatActivity {
                     }
                     break;
                 case "Switch":
-                    System.out.println("switch");
                     if (viewsArray.get(i).getSwitch().isChecked()) {
                         data = "1";
                     } else if (!viewsArray.get(i).getSwitch().isChecked()) {
@@ -228,7 +229,6 @@ public class Scouting extends AppCompatActivity {
                     }
                     break;
                 case "Divider":
-                    System.out.println("div");
                     continue;
                     //divider doesn't do anything, this is here to prevent m a c h i n e b r o k e
                     //break;
