@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -94,6 +95,7 @@ public class Scouting extends AppCompatActivity {
             LinearLayout linearWrapper = new LinearLayout(this);
             linearWrapper.setOrientation(LinearLayout.HORIZONTAL);
             linearWrapper.setPadding(0,0,0,20);
+            linearWrapper.setBackgroundResource(R.drawable.bottom_border);
 
             TextView nameView = new TextView(this);
             nameView.setText(viewsInputDataArray.get(i).getName());
@@ -116,9 +118,14 @@ public class Scouting extends AppCompatActivity {
                     break;
                 }
                 case "Number Input": {
-                    EditText inputView = new EditText(this);
-                    inputView.setInputType(TYPE_CLASS_NUMBER);
-                    inputView.setLayoutParams(param);
+                    //EditText inputView = new EditText(this);
+                    //inputView.setInputType(TYPE_CLASS_NUMBER);
+                    //inputView.setLayoutParams(param);
+
+                    NumberPicker inputView = new NumberPicker(this);
+                    inputView.setMinValue(0);
+                    inputView.setMaxValue(100);
+                    inputView.setWrapSelectorWheel(false);
 
                     linearWrapper.addView(nameView);
                     linearWrapper.addView(inputView);
@@ -185,14 +192,14 @@ public class Scouting extends AppCompatActivity {
                     data = viewsArray.get(i).getEditText().getText().toString();
                     break;
                 case "Number Input":
-                    System.out.println("num");
-                    data = viewsArray.get(i).getEditText().getText().toString();
-                    if (data.equals("")) {
-                        data = "0";
-                    }
+                    //data = viewsArray.get(i).getEditText().getText().toString();
+                    //if (data.equals("")) {
+                    //    data = "0";
+                    //}
+
+                    data = valueOf(viewsArray.get(i).getNumberPicker().getValue());
                     break;
                 case "Switch":
-                    System.out.println("switch");
                     if (viewsArray.get(i).getSwitch().isChecked()) {
                         data = "1";
                     } else if (!viewsArray.get(i).getSwitch().isChecked()) {
@@ -202,7 +209,6 @@ public class Scouting extends AppCompatActivity {
                     }
                     break;
                 case "Divider":
-                    System.out.println("div");
                     continue;
                     //divider doesn't do anything, this is here to prevent m a c h i n e b r o k e
                     //break;

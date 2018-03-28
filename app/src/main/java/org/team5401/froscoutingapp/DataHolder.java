@@ -1,12 +1,14 @@
 package org.team5401.froscoutingapp;
 
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Switch;
 
 public class DataHolder {
 
     EditText E;
     Switch S;
+    NumberPicker NP;
     String N;
     String D;
 
@@ -16,6 +18,10 @@ public class DataHolder {
 
     public DataHolder (Switch s) {
         S = s;
+    }
+
+    public DataHolder (NumberPicker np) {
+        NP = np;
     }
 
     public DataHolder (String n, String d) {
@@ -31,12 +37,20 @@ public class DataHolder {
         S = s;
     }
 
+    public void setNumberPicker(NumberPicker np) {
+        NP = np;
+    }
+
     public EditText getEditText() {
         return E;
     }
 
     public Switch getSwitch() {
         return S;
+    }
+
+    public NumberPicker getNumberPicker() {
+        return NP;
     }
 
     public void setName(String n) {
